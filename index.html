@@ -22,13 +22,16 @@
         .header {
             background-color: #1a1a1a;
             color: white;
-            padding: 40px 20px;
+            padding: 20px;
             text-align: center;
+            max-width: 750px;
+            margin: 20px auto 0 auto;
+            border-radius: 8px 8px 0 0;
         }
 
         .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
+            font-size: 1.5em;
+            margin-bottom: 5px;
         }
 
         .header p {
@@ -37,17 +40,20 @@
         }
 
         .timeline-wrapper {
-            max-width: 900px;
-            margin: 60px auto;
-            padding: 0 20px;
+            max-width: 750px;
+            margin: 0 auto 20px auto;
+            padding: 15px;
             position: relative;
+            background-color: white;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
         .progress-bar {
             width: 100%;
             height: 4px;
             background-color: #ddd;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             border-radius: 2px;
             overflow: hidden;
         }
@@ -61,7 +67,7 @@
 
         .timeline-container {
             position: relative;
-            overflow: auto;
+            overflow: hidden;
         }
 
         .timeline-item {
@@ -76,30 +82,32 @@
         }
 
         .timeline-content {
-            background-color: white;
-            padding: 40px;
+            background-color: #fafafa;
+            padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            min-height: 500px;
+            border: 1px solid #e0e0e0;
         }
 
         .timeline-date {
             font-weight: bold;
-            font-size: 2em;
+            font-size: 1.5em;
             color: #e7b743;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .timeline-content p {
-            font-size: 1.15em;
-            margin-bottom: 20px;
-            line-height: 1.8;
+            font-size: 1em;
+            margin-bottom: 15px;
+            line-height: 1.6;
         }
 
         .photo-placeholder {
             width: 100%;
-    height: auto;
-    margin-top: 20px;
+            height: auto;
+            max-height: 400px;
+            margin-top: 15px;
+            border-radius: 4px;
+            overflow: show;
         }
 
 
@@ -107,8 +115,8 @@
             padding: 8px 15px;
             background-color: #2a2a2a;
             color: #999;
-            font-size: 0.50em;
-            text-align: end;
+            font-size: 0.75em;
+            text-align: right;
             font-style: normal;
             font-family: Arial, sans-serif;
         }
@@ -116,9 +124,10 @@
         
         .photo-placeholder img {
             width: 100%;
-    height: auto;
-    display: block;
-    object-fit: contain;
+            height: auto;
+            max-height: 400px;
+            display: block;
+            object-fit: contain;
         }
 
 
@@ -126,22 +135,22 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 40px;
+            margin-top: 20px;
         }
 
         .nav-button {
             background-color: #e7b743;
             color: white;
             border: none;
-            padding: 15px 30px;
-            font-size: 1.1em;
+            padding: 12px 24px;
+            font-size: 1em;
             cursor: pointer;
             border-radius: 4px;
             transition: background-color 0.3s ease;
-            font-family: 'Georgia', serif;
+            font-family: 'Futura', sans-serif;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
         .nav-button:hover {
@@ -154,12 +163,12 @@
         }
 
         .nav-button svg {
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
         }
 
         .event-counter {
-            font-size: 1.2em;
+            font-size: 1.1em;
             color: #666;
         }
 
@@ -173,18 +182,27 @@
             margin-bottom: 15px;
         }
 
+
         @media (max-width: 768px) {
+            .header {
+                margin: 20px 10px 0 10px;
+                border-radius: 8px 8px 0 0;
+            }
+
             .header h1 {
-                font-size: 1.8em;
+                font-size: 1.4em;
+            }
+
+            .timeline-wrapper {
+                margin: 0 10px 40px 10px;
             }
 
             .timeline-content {
-                padding: 25px;
-                min-height: 300px;
+                padding: 20px;
             }
 
             .timeline-date {
-                font-size: 1.5em;
+                font-size: 1.4em;
             }
 
             .timeline-content p {
@@ -192,12 +210,8 @@
             }
 
             .nav-button {
-                padding: 12px 20px;
-                font-size: 1em;
-            }
-
-            .photo-placeholder {
-                height: 200px;
+                padding: 10px 16px;
+                font-size: 0.9em;
             }
         }
     </style>
@@ -210,6 +224,22 @@
     <div class="timeline-wrapper">
         <div class="progress-bar">
             <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-button" id="prevBtn" disabled>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M15 18l-6-6 6-6"/>
+                </svg>
+                Previous
+            </button>
+            <span class="event-counter" id="eventCounter">1 / 13</span>
+            <button class="nav-button" id="nextBtn">
+                Next
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 18l6-6-6-6"/>
+                </svg>
+            </button>
         </div>
 
         <div class="timeline-container" id="timelineContainer">
@@ -281,7 +311,7 @@
                 <div class="timeline-content">
                     <div class="timeline-date">October - December 2013</div>
                     <p>Williams trucks the material to a Berger, Missouri warehouse owned by the family of Daryl Duncan, his former employee. There, they say they plan to recycle the material into railroad ties.</p>
-                    <div class="photo-placeholder"><img src="images/Artboard 2.jpg"></div>
+                    <div class="photo-placeholder"><img src="images/TruckingFinal.jpg"></div>
                     <div class="photo-credit">Illustration Credit: Yasha Mikolajczak/Missouri News Network </div>
                 </div>
             </div>
@@ -328,21 +358,6 @@
             </div>
         </div>
 
-        <div class="navigation">
-            <button class="nav-button" id="prevBtn" disabled>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M15 18l-6-6 6-6"/>
-                </svg>
-                Previous
-            </button>
-            <span class="event-counter" id="eventCounter">1 / 13</span>
-            <button class="nav-button" id="nextBtn">
-                Next
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M9 18l6-6-6-6"/>
-                </svg>
-            </button>
-        </div>
     </div>
 
     <script>
